@@ -67,9 +67,9 @@ prepend-rules:
 
 
 append-rules:
-  - RULE-SET,GoogleCNIP,漏网之魚 Непойманная рыба
-  - RULE-SET,GoogleCN,漏网之魚 Непойманная рыба
-  - MATCH,漏网之魚 Непойманная рыба
+  - RULE-SET,GoogleCNIP,🐟 漏网之魚 Непойманная рыба
+  - RULE-SET,GoogleCN,🐟 漏网之魚 Непойманная рыба
+  - MATCH,🐟 漏网之魚 Непойманная рыба
 
 # --- 1. Rule Provider Definition (Fetches Dynamic IPs) ---
   # rule-providers:
