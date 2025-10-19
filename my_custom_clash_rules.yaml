@@ -60,11 +60,13 @@ rule-providers:
 prepend-rules:
   - RULE-SET,LAN,🖧 LAN
   - RULE-SET,Github,Github
+
+
+rules:
   - RULE-SET,AI,✦︎ AI
   - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,tcp,DST-PORT,80/443/5222
   - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,udp,DST-PORT,596/597/598/599/1400/4000-5000
   - RULE-SET,RussianServices,俄羅斯國內 РФ В пределах
-
 
 append-rules:
   - RULE-SET,GoogleCNIP,🐟 漏网之魚 Непойманная рыба
