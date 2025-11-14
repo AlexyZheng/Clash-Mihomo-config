@@ -63,7 +63,7 @@ prepend-rules:
   - RULE-SET,AI,✦︎ AI
   - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,tcp,DST-PORT,80/443/5222
   - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,udp,DST-PORT,596/597/598/599/1400/4000-5000
-  - RULE-SET,RussianServices,俄羅斯國內 РФ В пределах
+  - RULE-SET,RussianServices,俄羅斯国內 РФ В пределах
 
 rules:
 
