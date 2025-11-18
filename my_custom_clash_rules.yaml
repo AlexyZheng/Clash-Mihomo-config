@@ -3,77 +3,150 @@ custom:
   overwrite_original_rules: true
 
 
-
-
-
+mode: rule
+mixed-port: 7897
+allow-lan: true
+log-level: warning
+ipv6: true
+external-controller: 127.0.0.1:9090
+secret: '1'
+unified-delay: true
+tun:
+  exclude-package: []
+  auto-detect-interface: true
+  auto-route: true
+  device: Mihomo
+  dns-hijack:
+  - any:53
+  mtu: 1500
+  stack: system
+  strict-route: true
+  enable: true
+dns:
+  enable: true
+  default-nameserver:
+  - 2a02:6b8::feed:0ff
+  - 77.88.8.8:443
+  - 77.88.8.1
+  - 2400:3200::1
+  - 223.6.6.6:443
+  - 223.5.5.5
+  direct-nameserver-follow-policy: true
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+  - '*.lan'
+  - '*.local'
+  - '*.arpa'
+  - time.*.com
+  - ru.pool.ntp.org
+  - cn.pool.ntp.org
+  - ntp.*.com
+  - ntp.ubuntu.com
+  - ntp.debian.org
+  - time.android.com
+  - pool.ntp.org
+  - localhost.ptlogin2.qq.com
+  fake-ip-filter-mode: blacklist
+  fake-ip-range: 198.18.0.1/16
+  fallback: null
+  fallback-filter:
+    geoip: false
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+  ipv6: true
+  listen: 0.0.0.0:1053
+  nameserver:
+  - 2606:4700:4700::1111
+  - 1.1.1.1
+  - https://1.1.1.1/dns-query
+  - https://8.8.8.8/dns-query
+  - https://8.8.4.4/dns-query
+  - quic://dns.adguard.com
+  nameserver-policy:
+    geosite:cn:
+    - 2400:3200::1
+    - 119.29.29.29
+    - 223.5.5.5
+    - 223.6.6.6
+    - quic://dns.alidns.com
+    geosite:category-ru:
+    - 2a02:6b8::feed:0ff
+    - 2a02:6b8:0:1::feed:0ff
+    - 77.88.8.8
+    - 77.88.8.1
+    - quic://dns.comss.one
+    geosite:google:
+    - https://8.8.8.8/dns-query
+    - https://8.8.4.4/dns-query
+    - https://1.1.1.1/dns-query
+    geosite:youtube:
+    - https://8.8.8.8/dns-query
+    - https://8.8.4.4/dns-query
+    - https://1.1.1.1/dns-query
+  prefer-h3: false
+  respect-rules: false
+  use-hosts: true
+  use-system-hosts: true
+  cache-algorithm: arc
+external-ui: ./dashboard
+proxy: null
+geox-url:
+  geoip: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat
+  mmdb: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb
+  asn: https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/GeoLite2-ASN.mmdb
+geodata-mode: false
+append-rules:
+- GEOIP,US,🐟 漏网之鱼 Непойманная рыба
+external-controller-unix: /var/tmp/verge/verge-mihomo.sock
+external-controller-cors:
+  allow-private-network: true
+  allow-origins:
+  - tauri://localhost
+  - http://tauri.localhost
+  - https://yacd.metacubex.one
+  - https://metacubex.github.io
+  - https://board.zash.run.place
+proxy group: null
+prepend-rules:
+- GEOIP,private, 🖧 LAN
+- RULE-SET,LAN, 🖧 LAN
+- RULE-SET,Github,Github
+- RULE-SET,telegram_voip_nets,♻️ 自动选择 Автовыбор,no-resolve,network,tcp,DST-PORT,80/443/5222
+- RULE-SET,telegram_voip_nets,♻️ 自动选择 Автовыбор,no-resolve,network,udp,DST-PORT,596/597/598/599/1400/4000-5000
 rule-providers:
   LAN:
     type: http
     behavior: classical
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/LAN.yaml"
-    interval: 86400 # Checks for updates daily
+    url: https://raw.githubusercontent.com/AlexyZheng/Clash-Mihomo-config/refs/heads/main/rules/LAN.yaml
+    interval: 86400
     path: ./ruleset/LAN.yaml
     format: yaml
-  RussianServices:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/RussianServices.mrs"
-    interval: 86400
-    path: ./ruleset/RussianServices.mrs
-    format: mrs
   telegram_voip_nets:
     type: http
-    behavior: ipcidr
-    url: "https://raw.githubusercontent.com/fernvenue/telegram-cidr-list/refs/heads/master/CIDR.yaml"
-    interval: 86400 # Checks for updates daily
+    behavior: classical
+    url: https://raw.githubusercontent.com/fernvenue/telegram-cidr-list/refs/heads/master/CIDR.yaml
+    interval: 86400
     path: ./ruleset/telegram_voip_nets.yaml
     format: yaml
-  AI:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/AI.mrs"
-    interval: 86400
-    path: ./ruleset/AI.mrs
-    format: mrs
-  Github:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/Github.mrs"
-    interval: 86400
-    path: ./ruleset/Github.mrs
-    format: mrs
-  GoogleCNIP:
-    type: http
-    behavior: ipcidr
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/GoogleCNIP.yaml"
-    interval: 86400 # Checks for updates daily
-    path: ./ruleset/GoogleCNIP.yaml
-    format: yaml
-  GoogleCN:
-    type: http
-    behavior: domain
-    url: "https://raw.githubusercontent.com/AlexyZheng/subconverter-rs/refs/heads/main/base/rules/ACL4SSR/Clash/GoogleCN.mrs"
-    interval: 86400 # Checks for updates daily
-    path: ./ruleset/GoogleCN.mrs
-    format: mrs
-
-prepend-rules:
-  - RULE-SET,LAN,🖧 LAN
-  - RULE-SET,Github,Github
-  - RULE-SET,AI,✦︎ AI
-  - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,tcp,DST-PORT,80/443/5222
-  - RULE-SET,telegram_voip_nets,Telegram,no-resolve,network,udp,DST-PORT,596/597/598/599/1400/4000-5000
-  - RULE-SET,RussianServices,俄羅斯国內 РФ В пределах
-
 rules:
-
-
-    - MATCH,🐟 漏网之魚 Непойманная рыба
-
-
-append-rules:
-  - RULE-SET,GoogleCNIP,🐟 漏网之鱼 Непойманная рыба
-  - RULE-SET,GoogleCN,🐟 漏网之鱼 Непойманная рыба
+- IP-CIDR,185.33.24.229/32,DIRECT,no-resolve
+- IP-CIDR,45.83.20.34/32,DIRECT,no-resolve
+- IP-CIDR,188.68.53.100/32,DIRECT,no-resolve
+- IP-CIDR,45.83.21.107/32,DIRECT,no-resolve
+- GEOSITE,category-ai-!cn, ✦︎ AI
+- GEOSITE,youtube, ▶ Youtube
+- GEOSITE,telegram, ⌲ Telegram
+- DOMAIN-SUFFIX,my.gov.au, 🐟 俄羅斯 РФ
+- DOMAIN-SUFFIX,my.gov.au, 🐟 中国 КНР
+- DOMAIN-SUFFIX,мвд.рф, 🇷🇺 俄羅斯国內 РФ В пределах
+- GEOIP,RU, 🇷🇺 俄羅斯国內 РФ В пределах
+- GEOSITE,category-ru, 🇷🇺 俄羅斯国內 РФ В пределах
+- GEOIP,CN, 🇨🇳 中国国內 КНР В пределах
+- GEOSITE,CN, 🇨🇳 中国国內 КНР В пределах
+- GEOSITE,ru-blocked, 🐟 俄羅斯 РФ
+- GEOSITE,gfw, 🐟 中国 КНР
+- MATCH, 🐟 漏网之鱼 Ускользнуть
 
 # --- 1. Rule Provider Definition (Fetches Dynamic IPs) ---
   # rule-providers:
