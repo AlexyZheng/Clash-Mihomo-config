@@ -31,5 +31,8 @@ payload:
   - IP-CIDR6,fc00::/7,no-resolve
   - IP-CIDR6,fe80::/10,no-resolve
   - IP-CIDR6,fd00::/8,no-resolve
+  - PROCESS-NAME,kdeconnectd,DIRECT
+  - PROCESS-NAME,kdeconnect-app,DIRECT
+  - GEOIP,private,DIRECT
 
 # Router managed 路由器管理域名
